@@ -21,17 +21,43 @@
                     <div class="card-action">
                         <a href="{{ url('show/' . $item->id) }}">Voir en détail</a>
                         @auth
-                            <a href="{{ url('admin/update/' . $item->id) }}">Modifier</a>
-                            <a href="{{ url('admin/delete/' . $item->id) }}">Supprimer</a>
+                            <a href="{{ url('admin/vignettes/' . $item->id) }}">Modifier</a>
+                            <a href="{{ url('admin/vignettes/remove/' . $item->id) }}">Supprimer</a>
                         @endauth
                     </div>
                 </div>
             @endforeach
         @endif
 
+        @if(isset($vignetteGuest))
+                <h1>Aperçu de l'élément {{ $vignetteGuest->id }}</h1>
+                <div class="card sticky-action" style="margin-left: 30%; margin-right: 30%;">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="{{ $vignetteGuest->url }}">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">Carte numéro {{ $vignetteGuest->id }}<i class="material-icons right">+</i></span>
+                            {{-- <p><a href="#">This is a link</a></p> --}}
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">Carte numéro {{ $vignetteGuest->id }}<i class="material-icons right">X</i></span>
+                            <h6>Légende</h6>
+                            <p>{{ $vignetteGuest->legend }}</p>
+                            <h6>Description</h6>
+                            <p>{{ $vignetteGuest->description }}</p>
+                        </div>
+                        @auth
+                            <div class="card-action">
+                                    <a href="{{ url('admin/vignettes/' . $vignetteGuest->id) }}">Modifier</a>
+                                    <a href="{{ url('admin/vignettes/remove/' . $vignetteGuest->id) }}">Supprimer</a>
+                            </div>
+                        @endauth
+                    </div>
+        @endif
+
         @if(isset($listAdmin))
             <h1>Administration des vignettes</h1>
-            <a href=" {{ url('admin/vignettes/create') }}">
+            <a href=" {{ url('admin/vignettes/new') }}">
                 <h6>Créer un nouvel élément</h6>
             </a>
             <table>
@@ -59,29 +85,38 @@
             </table>
         @endif
 
-        @if($new == true)
+        @if(isset($new) && isset($new) === true)
             <h1>Création d'un nouvel élément</h1>
                 <div class="container">
                     <div class="row">
                       <div class="col s12 m6">
                         <div class="card">
                           <div class="card-content" style="text-align:center;">
-                              {{ Form::open(array('url' => 'admin/vignettes/update/' . $vignetteUpdateAdmin->id, 'method' => 'put')) }}
+                              {{ Form::open(array('url' => 'admin/vignettes/create')) }}
                                 <div class="input-field">
-                                  <input id="legend" name="legend" type="text" class="validate" value="{{ $vignetteUpdateAdmin->legend }}">
+                                  <input id="legend" name="legend" type="text" class="validate">
                                   <label for="legend">Légende</label>
                                 </div>
                                 <div class="input-field">
-                                <textarea id="description" name="description" class="materialize-textarea validate">{{ $vignetteUpdateAdmin->description }}</textarea>
+                                <textarea id="description" name="description" class="materialize-textarea validate"></textarea>
                                   <label for="description">Description</label>
                                 </div>
                                 <div class="input-field">
-                                  <input id="url" name="url" type="text" class="validate" value="{{ $vignetteUpdateAdmin->url }}">
+                                  <input id="url" name="url" type="text" class="validate">
                                   <label for="url">URL</label>
                                 </div>
                                 <div class="btn">
-                                  <input type="submit" value="Modifier" style="border:0; background: transparent; color: white;">
+                                  <input type="submit" value="Envoyer" style="border:0; background: transparent; color: white;">
                                 </div>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                               {{ Form::close() }}
                           </div>
                         </div>
@@ -113,6 +148,15 @@
                                 <div class="btn">
                                   <input type="submit" value="Modifier" style="border:0; background: transparent; color: white;">
                                 </div>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                               {{ Form::close() }}
                           </div>
                         </div>

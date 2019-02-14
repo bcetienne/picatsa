@@ -13,6 +13,7 @@ class VignettesController extends Controller
     }
 
     public function showOne($id) {
-        echo $id;
+        $vignette = Vignettes::find($id);
+        return view('welcome', ['vignetteGuest' => $vignette]);
     }
 }

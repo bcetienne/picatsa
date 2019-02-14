@@ -17,8 +17,8 @@ Route::get('/show/{id}', 'VignettesController@showOne');
 
 // Admin part
 Route::get('/admin', 'AdminController@index')->name('admin');
-Route::get('/admin/vignettes/{id?}', 'AdminController@show');
-Route::get('/admin/vignettes/newElement', 'AdminController@new');
+Route::get('/admin/vignettes/{id?}', 'AdminController@show')->where('id', '[0-9]+');
+Route::get('/admin/vignettes/new', 'AdminController@showForm');
 Route::post('/admin/vignettes/create', 'AdminController@create');
 Route::put('/admin/vignettes/update/{id}', 'AdminController@update');
 Route::get('/admin/vignettes/remove/{id}', 'AdminController@remove');

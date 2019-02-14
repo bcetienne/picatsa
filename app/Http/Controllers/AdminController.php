@@ -29,12 +29,31 @@ class AdminController extends Controller
         }
     }
 
-    public function newElement() {
+    public function showForm() {
         return view('welcome', ['new' => true]);
     }
 
     public function create(Request $request) {
+        $validateData = $request->validate([
+            'legend' => 'required|max:75',
+            'description' => 'required|max:255',
+            'url' => 'required',
+        ]);
 
+        // Retrieve the inputs data
+        $inputs = $request->input();
+
+        $element = new Vignettes;
+        $element->legend = $inputs['legend'];
+        $element->description = $inputs['description'];
+        $element->url = $inputs['url'];
+
+        if ($element->save()) {
+            $id = $element->id;
+            return redirect('show/' . $id);
+        } else {
+            return redirect('/');
+        }
     }
 
     public function update($id, Request $request) {
@@ -58,6 +77,9 @@ class AdminController extends Controller
     }
 
     public function remove($id) {
-
+        $vignette = Vignettes::find($id);
+        if ($vignette->delete()) {
+            return redirect('/');
+        }
     }
 }
