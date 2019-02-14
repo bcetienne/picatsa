@@ -6,8 +6,9 @@
         <li><a href="{{ route('login') }}">{{ __('Connexion') }}</a></li>
         <li><a href="{{ route('register') }}">{{ __('S\'inscrire') }}</a></li>
       @else
-        <li><a href="">{{ __('Console d\'administration') }}</a></li>
-        <li><a  class="dropdown-item" href="{{ route('logout') }}"
+        <li><a href="{{ route('admin') }}">{{ __('Console d\'administration') }}</a></li>
+        <li><a href="{{ route('logout') }}">{{ __('Déconnexion') }}</a></li>
+        {{-- <li><a  class="dropdown-item" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                 {{ __('Déconnexion') }}
@@ -16,7 +17,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-        </li>
+        </li> --}}
       @endguest
     </ul>
   </div>
