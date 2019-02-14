@@ -61,20 +61,12 @@
 
         @if($new == true)
             <h1>Création d'un nouvel élément</h1>
-        @endif
-
-        @if(isset($vignetteUpdateAdmin))
-            <h1>Modification de l'élément {{ $vignetteUpdateAdmin->id }}</h1>
-            <div class="container">
+                <div class="container">
                     <div class="row">
                       <div class="col s12 m6">
                         <div class="card">
                           <div class="card-content" style="text-align:center;">
                               {{ Form::open(array('url' => 'admin/vignettes/update/' . $vignetteUpdateAdmin->id, 'method' => 'put')) }}
-                                {{-- <div class="input-field" style="display: none;">
-                                  <input id="eId" name="eId" type="text" class="validate" value="{{ $vignetteUpdateAdmin->id }}">
-                                  <label for="eId">Numéro de l'élément</label>
-                                </div> --}}
                                 <div class="input-field">
                                   <input id="legend" name="legend" type="text" class="validate" value="{{ $vignetteUpdateAdmin->legend }}">
                                   <label for="legend">Légende</label>
@@ -95,7 +87,38 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                </div>
+        @endif
+
+        @if(isset($vignetteUpdateAdmin))
+            <h1>Modification de l'élément {{ $vignetteUpdateAdmin->id }}</h1>
+            <div class="container">
+                    <div class="row">
+                      <div class="col s12 m6">
+                        <div class="card">
+                          <div class="card-content" style="text-align:center;">
+                              {{ Form::open(array('url' => 'admin/vignettes/update/' . $vignetteUpdateAdmin->id, 'method' => 'put')) }}
+                                <div class="input-field">
+                                  <input id="legend" name="legend" type="text" class="validate" value="{{ $vignetteUpdateAdmin->legend }}">
+                                  <label for="legend">Légende</label>
+                                </div>
+                                <div class="input-field">
+                                <textarea id="description" name="description" class="materialize-textarea validate">{{ $vignetteUpdateAdmin->description }}</textarea>
+                                  <label for="description">Description</label>
+                                </div>
+                                <div class="input-field">
+                                  <input id="url" name="url" type="text" class="validate" value="{{ $vignetteUpdateAdmin->url }}">
+                                  <label for="url">URL</label>
+                                </div>
+                                <div class="btn">
+                                  <input type="submit" value="Modifier" style="border:0; background: transparent; color: white;">
+                                </div>
+                              {{ Form::close() }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
         @endif
     </div>
 @endsection
