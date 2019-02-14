@@ -11,6 +11,6 @@ class VignettesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\Vignettes::class, 10)->create();
     }
 }

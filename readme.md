@@ -31,3 +31,8 @@ php artisan make:seeder VignettesTableSeeder
 ```
 php artisan make:factory VignettesFactory
 ```
+
+## Seeder
+```
+php artisan db:seed --class=VignettesTableSeeder
+```

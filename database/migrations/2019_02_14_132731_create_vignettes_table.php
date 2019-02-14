@@ -15,6 +15,9 @@ class CreateVignettesTable extends Migration
     {
         Schema::create('vignettes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('legend');
+            $table->string('description');
+            $table->string('url')->unique();
             $table->timestamps();
         });
     }
